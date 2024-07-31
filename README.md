@@ -14,5 +14,5 @@
 
 ## Acknowledgement
 
-- https://github.com/Key033/RSS2Notion?tab=readme-ov-file
+- https://github.com/Key033/RSS2Notion
 - https://github.com/rainyear/dailybot
