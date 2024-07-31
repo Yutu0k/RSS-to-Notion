@@ -1,0 +1,5 @@
+.DS_Store
+*.vscodeworkspace
+5_Reference/
+4_Test/
+Notion_Update_Dev.ipynb

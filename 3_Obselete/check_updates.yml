@@ -1,12 +1,12 @@
-name: Update RSS Feed to Notion
+name: Check URL Updates
 
 on:
   schedule:
-    - cron: '0 * * * *'  # 每小时运行一次
+    - cron: '0 */2 * * *'  # 每2小时运行一次
   workflow_dispatch:  # 手动触发
 
 jobs:
-  update-rss:
+  check-updates:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,10 +23,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install feedparser requests
 
-      - name: Run script
+      - name: Run update check script
         env:
-          RSS_FEED_URL: ${{ secrets.RSS_FEED_URL }}
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          NOTION_READING_DATABASE_ID: ${{ secrets.NOTION_READING_DATABASE_ID }}
+          NOTION_URL_DATABASE_ID: ${{ secrets.NOTION_URL_DATABASE_ID }}
         run: |
           python update_rss_to_notion.py
