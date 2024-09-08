@@ -66,7 +66,8 @@ def parse_rss_entries(url, retries=3):
 						}
 				)
 
-			return feeds, entries[:50]
+			# return feeds, entries[:50]
+			return feeds, entries[:3]	
 		
 	feeds = {
 		"title": "Unknown",
@@ -125,10 +126,14 @@ class NotionAPI:
 		rss_feed_list = []
 		for page in data['results']:
 			props = page["properties"]
+			multi_select = props["Tag"]["multi_select"]
+			name_color_pairs = [(item['name'], item['color']) for item in multi_select]
+			print(name_color_pairs)
 			rss_feed_list.append(
 				{
 					"url": props["URL"]["url"],
-					"page_id": page.get("id")
+					"page_id": page.get("id"),
+					"tags": name_color_pairs
 				}
 			)
 
