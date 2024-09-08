@@ -15,11 +15,11 @@ def update():
 	if NOTION_API_KEY is None:
 		print("NOTION_SEC secrets is not set!")
 		return
-	
+
 	api = NotionAPI(NOTION_API_KEY, NOTION_READING_DATABASE_ID, NOTION_URL_DATABASE_ID)
 
 	rss_feed_list = api.queryFeed_from_notion()
-	
+
 	for rss_feed in rss_feed_list:
 		feeds, entries = parse_rss_entries(rss_feed.get("url"))
 		rss_page_id = rss_feed.get("page_id")
@@ -40,11 +40,11 @@ def update():
 		current_urls = [x.get("properties").get("URL").get("url") for x in response.json().get("results")]
 		repeat_flag = 0
 
-
+		rss_tags = rss_feed.get("tags")
 		api.saveFeed_to_notion(feeds, page_id=rss_page_id)
 		for entry in entries:
 			if entry.get("link") not in current_urls:
-				api.saveEntry_to_notion(entry, rss_page_id)
+				api.saveEntry_to_notion(entry, rss_page_id, rss_tags)
 				current_urls += [entry.get("link")]
 			else:
 				repeat_flag += 1

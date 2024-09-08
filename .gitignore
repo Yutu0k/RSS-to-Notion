@@ -3,4 +3,5 @@
 5_Reference/
 4_Test/
 Notion_Update_Dev.ipynb
+Util/__pycache__/
 *.drawio

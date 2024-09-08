@@ -27,7 +27,7 @@
 
 ## Features
 
-- 在Notion数据库中管理RSS源
+- 在Notion数据库中管理RSS源（支持添加`Disable标签`控制是否更新和`Tags标签`控制添加内容的Tag）
 - 利用Notion管理RSS Entries（例如关键词、文章信息、标签等）
 - 定时更新
 
