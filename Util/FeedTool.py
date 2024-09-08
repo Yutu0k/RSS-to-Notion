@@ -67,6 +67,7 @@ def parse_rss_entries(url, retries=3):
 				)
 
 			return feeds, entries[:50]
+			# return feeds, entries[:3]	
 		
 	feeds = {
 		"title": "Unknown",
@@ -125,16 +126,19 @@ class NotionAPI:
 		rss_feed_list = []
 		for page in data['results']:
 			props = page["properties"]
+			multi_select = props["Tag"]["multi_select"]
+			name_color_pairs = [(item['name'], item['color']) for item in multi_select]
 			rss_feed_list.append(
 				{
 					"url": props["URL"]["url"],
-					"page_id": page.get("id")
+					"page_id": page.get("id"),
+					"tags": name_color_pairs
 				}
 			)
 
 		return rss_feed_list
 
-	def saveEntry_to_notion(self, entry, page_id):
+	def saveEntry_to_notion(self, entry, page_id, tags):
 		"""
 		Save entry lists into reading database
 
@@ -164,6 +168,9 @@ class NotionAPI:
 				"Published": {"date": {"start": entry.get("time")}},
 				"Source":{
 					"relation": [{"id": page_id}]
+				},
+				"Tag": {
+					"multi_select": [{"name": tag[0], "color": tag[1]} for tag in tags]
 				}
 			},
 			"children": [
