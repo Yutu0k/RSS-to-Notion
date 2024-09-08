@@ -29,4 +29,4 @@ jobs:
           NOTION_READING_DATABASE_ID: ${{ secrets.NOTION_READING_DATABASE_ID }}
           NOTION_URL_DATABASE_ID: ${{ secrets.NOTION_URL_DATABASE_ID }}
         run: |
-          python Notion_Update_v3.1.py
+          python Notion_Update_v4.0.py
